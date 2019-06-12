@@ -1,17 +1,30 @@
-package: github.com/kubernetes-incubator/custom-metrics-apiserver
+package: github.com/jake-quovo/custom-metrics-apiserver
 import:
 - package: github.com/emicklei/go-restful
-  version: 2.2.1  # close to kubernetes Godeps.json
-
+  version: ^2.9.6
 - package: github.com/emicklei/go-restful-swagger12
-  version: 1.0.1  # from kubernetes Godeps.json
-
-- package: github.com/go-openapi/spec
-  version: 1de3e0542de65ad8d75452a595886fdd0befb363  # from kubernetes Godeps.json
-
-- package: github.com/spf13/cobra
-  version: c439c4fa093711d42e1b01acb1235b52004753c1  # from kubernetes Godeps.json
-
+  version: ^1.0.1
+- package: github.com/googleapis/gnostic
+  version: ^0.2.0
+  subpackages:
+  - OpenAPIv2
+- package: github.com/kubernetes-incubator/custom-metrics-apiserver
+  subpackages:
+  - pkg/apiserver
+  - pkg/apiserver/installer
+  - pkg/cmd
+  - pkg/cmd/server
+  - pkg/dynamicmapper
+  - pkg/provider
+  - pkg/provider/helpers
+  - pkg/registry/custom_metrics
+  - pkg/registry/external_metrics
+  - test-adapter/provider
+- package: github.com/spf13/pflag
+  version: ^1.0.3
+- package: k8s.io/api
+  subpackages:
+  - core/v1
 - package: k8s.io/apimachinery
   subpackages:
   - pkg/api/errors
@@ -19,16 +32,16 @@ import:
   - pkg/api/resource
   - pkg/apis/meta/internalversion
   - pkg/apis/meta/v1
+  - pkg/apis/meta/v1/unstructured
   - pkg/conversion
   - pkg/labels
   - pkg/runtime
   - pkg/runtime/schema
   - pkg/runtime/serializer
+  - pkg/types
   - pkg/util/errors
   - pkg/util/wait
   - pkg/version
-  version: release-1.14
-
 - package: k8s.io/apiserver
   subpackages:
   - pkg/endpoints
@@ -40,32 +53,32 @@ import:
   - pkg/registry/rest
   - pkg/server
   - pkg/server/options
-  version: release-1.14
-
 - package: k8s.io/client-go
+  version: ^11.0.0
   subpackages:
   - discovery
   - dynamic
-  - pkg/api
-  - pkg/api/install
-  - pkg/api/v1
+  - informers
+  - kubernetes
   - pkg/version
   - rest
+  - restmapper
   - testing
   - tools/clientcmd
-  version: release-11.0
-
+- package: k8s.io/component-base
+  subpackages:
+  - logs
+- package: k8s.io/klog
+  version: ^0.3.3
 - package: k8s.io/metrics
   subpackages:
   - pkg/apis/custom_metrics
   - pkg/apis/custom_metrics/install
   - pkg/apis/external_metrics
   - pkg/apis/external_metrics/install
-  version: release-1.14
-
 testImport:
 - package: github.com/stretchr/testify
-  version: ^1.1.4
+  version: ^1.3.0
   subpackages:
   - assert
   - require
